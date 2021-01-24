@@ -17,6 +17,7 @@ const App: React.FC = () => {
     const [welcomeMessage, setWelcomeMessage] = useState<string>("");
     const [message, setMessage] = useState<string[]>([]);
     const [state, setState] = useState<IState>({ playerOne: 0, playerTwo: 0 });
+    const [isLoading, setLoading] = useState<boolean>(false);
     const [dataToCompare, setCompareObjects] = useState<IPost[]>([]);
 
     const setData = (url: string, minMax: number[]) => {
@@ -24,7 +25,7 @@ const App: React.FC = () => {
         const ids = setTwoRandomIds(minMax);
         const getElemOne = axios.get(url + ids[0]);
         const getElemTwo = axios.get(url + ids[1]);
-
+        setLoading(true);
         axios
             .all([getElemOne, getElemTwo])
             .then(
@@ -42,6 +43,7 @@ const App: React.FC = () => {
 
                     setError("");
                     setType(type);
+                    setLoading(false);
 
                     if (result === "P1WIN") {
                         setState((state) => ({
@@ -78,6 +80,7 @@ const App: React.FC = () => {
             .catch((error) => {
                 setError(error.message);
                 setMessage([]);
+                setLoading(false);
             });
     };
     useEffect(() => {
@@ -97,10 +100,11 @@ const App: React.FC = () => {
                 message={message}
                 error={error}
                 welcomeMessage={welcomeMessage}
+                isLoading={isLoading}
                 left={<CustomCard values={dataToCompare[0]} type={type} />}
                 right={<CustomCard values={dataToCompare[1]} type={type} />}
             />
-            <Footer setData={setData} />
+            <Footer setData={setData} isLoading={isLoading} />
         </div>
     );
 };

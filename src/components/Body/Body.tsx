@@ -1,12 +1,13 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import ErrorBox from "../ErrorBox/ErrorBox";
+import Loader from "../Loader/Loader";
 import { makeStyles } from "@material-ui/core/styles";
 import { IPost } from "../../app.models";
 
 const useStyles = makeStyles({
     wrapper: {
-        minHeight: 430,
+        height: 530,
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
@@ -37,6 +38,7 @@ interface IProps {
     dataToCompare: IPost;
     error: string | undefined;
     welcomeMessage: string;
+    isLoading: boolean;
     left: JSX.Element;
     right: JSX.Element;
 }
@@ -49,11 +51,15 @@ const Body: React.FC<IProps> = (props) => {
         welcomeMessage,
         left,
         right,
+        isLoading,
     } = props;
     return (
         <div className={classes.wrapper}>
-            {message.length === 0 && !error && <h2>{welcomeMessage}</h2>}
+            {message.length === 0 && !error && !isLoading && (
+                <h2>{welcomeMessage}</h2>
+            )}
             {message.length > 0 &&
+                !isLoading &&
                 message.map((v: string, i: number) => {
                     return (
                         <p key={i} className={classes.text}>
@@ -61,7 +67,7 @@ const Body: React.FC<IProps> = (props) => {
                         </p>
                     );
                 })}
-            {!error && dataToCompare.length > 0 && (
+            {!error && !isLoading && dataToCompare.length > 0 && (
                 <Grid container spacing={4} className={classes.gridContainer}>
                     <Grid item xs={6}>
                         {left}
@@ -71,7 +77,8 @@ const Body: React.FC<IProps> = (props) => {
                     </Grid>
                 </Grid>
             )}
-            {error && <ErrorBox value={error} />}
+            {error && !isLoading && <ErrorBox value={error} />}
+            {isLoading && <Loader />}
         </div>
     );
 };

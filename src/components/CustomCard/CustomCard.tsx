@@ -11,12 +11,12 @@ const useStyles = makeStyles({
     primary: {
         backgroundColor: "#F1F5DC",
         padding: 20,
-        height: "100%",
+        minHeight: 400,
     },
     secondary: {
         backgroundColor: "#D19BD3",
         padding: 20,
-        height: "100%",
+        minHeight: 400,
     },
     title: {
         fontWeight: "bold",

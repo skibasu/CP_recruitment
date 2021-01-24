@@ -41,11 +41,12 @@ const useStyles = makeStyles({
 
 interface IProps {
     setData: (elem: string, arr: number[]) => void;
+    isLoading: boolean;
 }
 
 const Footer: React.FC<IProps> = (props) => {
     const classes = useStyles();
-    const { setData } = props;
+    const { setData, isLoading } = props;
     const { urls, groups, minMax } = config;
 
     return (
@@ -66,6 +67,7 @@ const Footer: React.FC<IProps> = (props) => {
                             onClick={() => setData(urls[i], minMax[i])}
                             variant="contained"
                             color="primary"
+                            disabled={isLoading}
                         >
                             {`Compare Two ${groups[i]}`}
                         </Button>
