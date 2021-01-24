@@ -85,7 +85,7 @@ const App: React.FC = () => {
     };
     useEffect(() => {
         setWelcomeMessage(
-            "Play by pressing one of the colored buttons below in the footer!"
+            "Play by pressing one of the button below in the footer!"
         );
     }, []);
 
