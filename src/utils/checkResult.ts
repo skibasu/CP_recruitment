@@ -9,8 +9,12 @@ const checkResult = (arrKeys: string[], arrObj: IPost) => {
     };
     arrKeys.forEach((v) => {
         if (v in arrObj[0]) {
-            const a = !isNaN(+arrObj[0][v]) ? +arrObj[0][v] : 0;
-            const b = !isNaN(+arrObj[1][v]) ? +arrObj[1][v] : 0;
+            const a = !isNaN(+arrObj[0][v].replace(",", "."))
+                ? +arrObj[0][v].replace(",", ".")
+                : 0;
+            const b = !isNaN(+arrObj[1][v].replace(",", "."))
+                ? +arrObj[1][v].replace(",", ".")
+                : 0;
 
             if (a > b) {
                 result = {
