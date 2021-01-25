@@ -52,9 +52,9 @@ const App: React.FC = () => {
                         }));
                         setMessage([
                             "Player One has Won!",
-                            `${winner} has more ${removeUnderscores(
+                            `${winner} has greater ${removeUnderscores(
                                 key
-                            )} then ${loser}`,
+                            )} than ${loser}`,
                         ]);
                     } else if (result === "P2WIN") {
                         setState((state) => ({
@@ -63,9 +63,9 @@ const App: React.FC = () => {
                         }));
                         setMessage([
                             "Player Two has Won!",
-                            `${winner} has more ${removeUnderscores(
+                            `${winner} has greater ${removeUnderscores(
                                 key
-                            )} then ${loser}`,
+                            )} than ${loser}`,
                         ]);
                     } else if (result === "DRAW") {
                         setMessage([

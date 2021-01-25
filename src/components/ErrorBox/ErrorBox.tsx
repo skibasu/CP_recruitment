@@ -26,7 +26,7 @@ const ErrorBox: React.FC<IProps> = (props) => {
             <div className={classes.body}>
                 <h2>Something went wrong :</h2>
                 <p>{value}</p>
-                <h2>Just try play again</h2>
+                <h2>Just try again</h2>
             </div>
         </div>
     );

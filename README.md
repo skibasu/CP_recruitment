@@ -1,12 +1,12 @@
-## App coniguration
+## App configuration
 
 Set all properties in src/settings/setting.tsx
 
 -   Set endpoints for application data
 -   Enter objects keys you would like to compare (one key for each url)
--   Set Names for each group - this names will be displayed on the page (in buttons etc)
+-   Set Names for each group - this names will be displayed on the page (on buttons etc)
 -   Set Range of ids for each endpoint. Random number will be selected from that range and added to the endpoint i.e (https://swapi.dev/api/people/id)
--   Set How many properties would you like to show on card for every groups
+-   Set How many properties would you like to show on a card for each groups
 
 export const config = {
 
