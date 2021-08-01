@@ -17,6 +17,7 @@ interface IProps {
 const Stats: React.FC<IProps> = (props) => {
     const classes = useStyles();
     const { result, name } = props;
+
     return (
         <div className={classes.wrapper}>
             <h2>{name}</h2>

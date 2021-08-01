@@ -1,7 +1,6 @@
 import React from "react";
-import { Button, ButtonGroup } from "@material-ui/core";
+import ButtonGroup from "../ButtonsGroup/ButtonsGroup";
 import { makeStyles } from "@material-ui/core/styles";
-import { config } from "../../settings/settings";
 
 const useStyles = makeStyles({
     wrapper: {
@@ -39,41 +38,12 @@ const useStyles = makeStyles({
     },
 });
 
-interface IProps {
-    setData: (elem: string, arr: number[]) => void;
-    isLoading: boolean;
-}
-
-const Footer: React.FC<IProps> = (props) => {
+const Footer: React.FC = () => {
     const classes = useStyles();
-    const { setData, isLoading } = props;
-    const { urls, groups, minMax } = config;
 
     return (
         <footer className={classes.wrapper}>
-            <ButtonGroup
-                variant="contained"
-                color="primary"
-                aria-label="contained primary button group"
-                className={classes.btnGroup}
-            >
-                {groups.map((v, i) => {
-                    let className =
-                        i % 2 === 0 ? classes.btnFirst : classes.btnSecond;
-                    return (
-                        <Button
-                            key={i}
-                            className={className}
-                            onClick={() => setData(urls[i], minMax[i])}
-                            variant="contained"
-                            color="primary"
-                            disabled={isLoading}
-                        >
-                            {`Compare Two ${groups[i]}`}
-                        </Button>
-                    );
-                })}
-            </ButtonGroup>
+            <ButtonGroup />
         </footer>
     );
 };

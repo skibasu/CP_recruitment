@@ -1,45 +1,19 @@
-import { IPost, IResult } from "../app.models";
+import { EResult } from "../app.models";
 
-const checkResult = (arrKeys: string[], arrObj: IPost) => {
-    let result: IResult = {
-        result: "",
-        winner: "",
-        loser: "",
-        key: "",
-    };
-    arrKeys.forEach((v) => {
-        if (v in arrObj[0]) {
-            const a = !isNaN(+arrObj[0][v].replace(",", "."))
-                ? +arrObj[0][v].replace(",", ".")
-                : 0;
-            const b = !isNaN(+arrObj[1][v].replace(",", "."))
-                ? +arrObj[1][v].replace(",", ".")
-                : 0;
+const checkResult = (data: [string, string]) => {
+    const a = !isNaN(+data[0].replace(",", "."))
+        ? +data[0].replace(",", ".")
+        : 0;
+    const b = !isNaN(+data[1].replace(",", "."))
+        ? +data[1].replace(",", ".")
+        : 0;
 
-            if (a > b) {
-                result = {
-                    result: "P1WIN",
-                    winner: arrObj[0].name,
-                    loser: arrObj[1].name,
-                    key: v,
-                };
-            } else if (a < b) {
-                result = {
-                    result: "P2WIN",
-                    winner: arrObj[1].name,
-                    loser: arrObj[0].name,
-                    key: v,
-                };
-            } else {
-                result = {
-                    result: "DRAW",
-                    winner: arrObj[0].name,
-                    loser: arrObj[1].name,
-                    key: v,
-                };
-            }
-        }
-    });
-    return result;
+    if (a > b) {
+        return EResult.P1WIN;
+    } else if (a < b) {
+        return EResult.P2WIN;
+    } else {
+        return EResult.DRAW;
+    }
 };
 export default checkResult;

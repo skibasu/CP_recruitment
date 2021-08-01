@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MyContext } from "../../ContextStore/ContextStore";
 import { Grid } from "@material-ui/core";
+import CustomCard from "../CustomCard/CustomCard";
 import ErrorBox from "../ErrorBox/ErrorBox";
 import Loader from "../Loader/Loader";
 import { makeStyles } from "@material-ui/core/styles";
-import { IPost } from "../../app.models";
 
 const useStyles = makeStyles({
     wrapper: {
-        height: 530,
+        minHeight: 1033,
         display: "flex",
         flexWrap: "wrap",
         alignItems: "center",
         justifyContent: "center",
+        "@media all and (min-width:992px)": {
+            minHeight: 561,
+        },
     },
     text: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         maxWidth: "100%",
         flex: "0 0 100%",
         textAlign: "center",
-
         margin: "0 auto",
         color: "#000",
         paddingTop: 5,
@@ -33,51 +39,40 @@ const useStyles = makeStyles({
     },
 });
 
-interface IProps {
-    message: string[];
-    dataToCompare: IPost;
-    error: string | undefined;
-    welcomeMessage: string;
-    isLoading: boolean;
-    left: JSX.Element;
-    right: JSX.Element;
-}
-const Body: React.FC<IProps> = (props) => {
+const Body: React.FC = () => {
     const classes = useStyles();
-    const {
-        message,
-        dataToCompare,
-        error,
-        welcomeMessage,
-        left,
-        right,
-        isLoading,
-    } = props;
+    const { state, error, isLoading, winner } = useContext(MyContext);
+
     return (
         <div className={classes.wrapper}>
-            {message.length === 0 && !error && !isLoading && (
-                <h2>{welcomeMessage}</h2>
+            {state.length === 0 && !error && !isLoading && (
+                <h2 data-testid="heading">
+                    Play by pressing one of the button below in the footer!
+                </h2>
             )}
-            {message.length > 0 &&
-                !isLoading &&
-                message.map((v: string, i: number) => {
-                    return (
-                        <p key={i} className={classes.text}>
-                            {v}
-                        </p>
-                    );
-                })}
-            {!error && !isLoading && dataToCompare.length > 0 && (
-                <Grid container spacing={4} className={classes.gridContainer}>
-                    <Grid item xs={6}>
-                        {left}
+            {state.length > 0 && !error && !isLoading && (
+                <>
+                    <p
+                        className={classes.text}
+                        dangerouslySetInnerHTML={{
+                            __html: winner,
+                        }}
+                    />
+                    <Grid
+                        container
+                        spacing={4}
+                        className={classes.gridContainer}
+                    >
+                        <Grid item xs={12} lg={6}>
+                            <CustomCard values={state[0]} />
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <CustomCard values={state[1]} />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                        {right}
-                    </Grid>
-                </Grid>
+                </>
             )}
-            {error && !isLoading && <ErrorBox value={error} />}
+            {error && !isLoading && <ErrorBox />}
             {isLoading && <Loader />}
         </div>
     );

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { MyContext } from "../../ContextStore/ContextStore";
 
 const useStyles = makeStyles({
     wrapper: {
@@ -15,17 +16,15 @@ const useStyles = makeStyles({
     },
 });
 
-interface IProps {
-    value: string;
-}
-const ErrorBox: React.FC<IProps> = (props) => {
+const ErrorBox: React.FC = () => {
     const classes = useStyles();
-    const { value } = props;
+    const { error } = useContext(MyContext);
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.body}>
                 <h2>Something went wrong :</h2>
-                <p>{value}</p>
+                <p>{error}</p>
                 <h2>Just try again</h2>
             </div>
         </div>

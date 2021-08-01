@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,6 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { IPost } from "../../app.models";
 import { config } from "../../settings/settings";
 import removeUnderscores from "../../utils/removeUnderscores";
+import { MyContext } from "../../ContextStore/ContextStore";
 
 const useStyles = makeStyles({
     primary: {
@@ -41,19 +42,14 @@ const useStyles = makeStyles({
         marginBottom: 20,
     },
 });
-interface IProps {
-    values: IPost;
-    type: string;
-}
 
-const CustomCard: React.FC<IProps> = (props) => {
+const CustomCard: React.FC<IPost> = ({ values }) => {
     const classes = useStyles();
-    const { values, type } = props;
+    const { isPrimary } = useContext(MyContext);
     const { propertiesToShow } = config;
+
     return (
-        <Card
-            className={type === "primary" ? classes.primary : classes.secondary}
-        >
+        <Card className={isPrimary ? classes.primary : classes.secondary}>
             <CardContent>
                 <ul className={classes.list}>
                     {Object.keys(values)
@@ -70,7 +66,7 @@ const CustomCard: React.FC<IProps> = (props) => {
                                 )}
                                 <span className={classes.subTitle}>
                                     {removeUnderscores(v)} :
-                                </span>{" "}
+                                </span>
                                 <span className={classes.title}>
                                     {values[v]}
                                 </span>

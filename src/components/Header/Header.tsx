@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { MyContext } from "../../ContextStore/ContextStore";
+import Stats from "../Stats/Stats";
 
 const useStyles = makeStyles({
     wrapper: {
@@ -11,23 +13,21 @@ const useStyles = makeStyles({
     },
 });
 
-interface IProps {
-    left: JSX.Element;
-    right: JSX.Element;
-}
-const Header: React.FC<IProps> = (props: IProps) => {
+const Header: React.FC = () => {
     const classes = useStyles();
-    const { left, right } = props;
+    const {
+        results: { playerOne, playerTwo },
+    } = useContext(MyContext);
 
     return (
         <header>
             <AppBar position="static" className={classes.wrapper}>
                 <Grid container>
                     <Grid item xs={6}>
-                        {left}
+                        <Stats name="Player One" result={playerOne} />
                     </Grid>
                     <Grid item xs={6}>
-                        {right}
+                        <Stats name="Player Two" result={playerTwo} />
                     </Grid>
                 </Grid>
             </AppBar>
