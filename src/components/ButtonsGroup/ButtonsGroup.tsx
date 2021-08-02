@@ -45,7 +45,6 @@ const useStyles = makeStyles({
 });
 const ButtonsGroup = () => {
     const classes = useStyles();
-
     const {
         results,
         isLoading,
@@ -117,6 +116,7 @@ const ButtonsGroup = () => {
     };
     return (
         <ButtonGroup
+            data-testid="buttons"
             variant="contained"
             color="primary"
             aria-label="contained primary button group"

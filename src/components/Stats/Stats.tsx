@@ -20,9 +20,9 @@ const Stats: React.FC<IProps> = (props) => {
 
     return (
         <div className={classes.wrapper}>
-            <h2>{name}</h2>
+            <h2 data-testid="title">{name}</h2>
             <ul className="stats">
-                <li>Wins : {result}</li>
+                <li data-testid="result">Wins : {result}</li>
             </ul>
         </div>
     );
